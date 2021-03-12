@@ -12,5 +12,6 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 <h5><a href="<spring:url value='/user/register'/>">Register User</a></h5>
+<h5><a href="<spring:url value='/user/login'/>">User Login</a></h5>
 </body>
 </html>

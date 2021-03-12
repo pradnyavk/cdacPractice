@@ -1,26 +1,55 @@
 package com.app.app.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.stereotype.Component;
+
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.app.pojos.*;
 
-@Component
-public class UserDao {
-	@Autowired
-	HibernateTemplate hibernateTemplate;
+@Repository
+@Transactional
+public class UserDao implements IUserDao{
 
-	@Transactional
-	public int save(User user) {
-		Integer i = (Integer) hibernateTemplate.save(user);
-		return i;
+//	EntityManagerFactory entityManagerFactory;
+	
+//	@PersistenceContext
+//	EntityManager entityManager;
+	
+	JdbcTemplate template;
+	
+	public void setTemplate(JdbcTemplate template) {
+		this.template = template;
 	}
 	
+
+
+	@Override
+	public User save(User user) {
+		String sql = "insert into user value(default,'"+user.getUseremail()+"','"+user.getUsername()+"','"+user.getUserpassword()+"')";
+		int status = template.update(sql);
+		System.out.println("User saved!!");
+		return user;
+	}
+	
+	@Override
 	public List<User> getAll(){
-		return hibernateTemplate.loadAll(User.class);
+		return template.query("select * from user", new RowMapper<User>() {
+			public User mapRow(ResultSet rs, int row) throws SQLException{
+				User user = new User();
+				user.setId(rs.getInt(1));
+				user.setUseremail(rs.getString(2));
+				user.setUsername(rs.getString(3));
+				user.setUserpassword(rs.getString(4));
+				return user;
+			}
+		});
+		
 	}
 }

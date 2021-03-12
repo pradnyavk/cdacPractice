@@ -6,11 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table
+
 public class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 	String username;
 	String useremail;
@@ -42,6 +39,15 @@ public class User {
 	}
 	public void setUserpassword(String userpassword) {
 		this.userpassword = userpassword;
+	}
+	
+	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	@Override
 	public String toString() {
