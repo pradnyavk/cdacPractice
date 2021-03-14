@@ -16,7 +16,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 public class ReportGeneration{
 	public void generateReport(List<User> users) throws Exception {
-		String reportTemplatePath = "D:\\CDAC\\JAVA2\\LabAssignments\\UserRegMVC\\src\\main\\java\\com\\app\\app\\report\\JasperReport.jrxml";
+		String reportTemplatePath = "D:\\CDAC\\JAVA2\\LabAssignments\\UserRegMVC\\src\\main\\java\\com\\app\\app\\report\\Blank_A4.jrxml";
 		JasperDesign jasperDesign = JRXmlLoader.load(reportTemplatePath);
 		JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(users);
