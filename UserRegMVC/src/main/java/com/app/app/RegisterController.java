@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.app.app.dao.IUserDao;
 import com.app.app.dao.UserDao;
 import com.app.app.pojos.User;
+import com.app.app.report.ReportGeneration;
 
 @Controller
 @RequestMapping("/user")
@@ -51,6 +52,12 @@ public class RegisterController {
 			if(u.getUseremail().equals(useremail)) {
 				if(u.getUserpassword().equals(userpassword)) {
 					map.addAttribute("users", users);
+					ReportGeneration rg = new ReportGeneration();
+					try {
+					rg.generateReport(users);
+					}catch (Exception e) {
+						e.printStackTrace();
+					}
 					return "/user/details";
 				}
 			}
