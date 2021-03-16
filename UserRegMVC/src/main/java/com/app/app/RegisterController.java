@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.app.dao.IUserDao;
 import com.app.app.dao.UserDao;
@@ -27,13 +28,13 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerUser(@RequestParam String username,@RequestParam String useremail,@RequestParam String userpassword,Model modelMap) 
+	public String registerUser(@RequestParam String username,@RequestParam String useremail,@RequestParam String userpassword,RedirectAttributes modelMap) 
 	{
 		try {
 			User user = new User(username,useremail,userpassword);
 			dao.save(user);
 			modelMap.addAttribute("status", "User Registered!Please Login");
-			return "/user/login";
+			return "redirect:/user/login";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "/user/register";
